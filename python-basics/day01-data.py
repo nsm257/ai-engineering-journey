@@ -34,19 +34,25 @@ def summarize_documents(documents):
         summaries.append(summary)
     return summaries
 
+def document_processing_report(documents: list[dict]):
+    print("\nDocument Processing Report:")
+    print("===========================")
+
+    print(f"\nDocuments: {len(documents)}")
+    count = 1
+    word_count = 0
+    for document in documents:
+        print(f"\n{count}. {document['title']}")
+        temp_word_count = count_words(document['content'])
+        word_count += temp_word_count
+        print(f"   Words: {temp_word_count}\n")
+        count += 1
+
+    print(f"\nTotal words: {word_count}")
+    print(f"Average words per document: {word_count / len(documents) if documents else 0:.2f}")
+
 
 with open('document.json', 'r') as file:
     documents = json.load(file)
-print("Documents loaded successfully.")
-print_documents_id_and_title(documents)
 
-print_total_num_documents(documents)
-
-second_document = get_document_by_id(documents, 2)
-if second_document:
-    print(f"Second document content: {second_document['content']}")
-
-summaries = summarize_documents(documents)
-print("Document summaries:")
-for summary in summaries:
-    print(f"Document ID: {summary['id']}, Title: {summary['title']}, Word Count: {summary['word_count']}")
+document_processing_report(documents)
