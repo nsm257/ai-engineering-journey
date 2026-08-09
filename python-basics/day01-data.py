@@ -50,9 +50,21 @@ def document_processing_report(documents: list[dict]):
 
     print(f"\nTotal words: {word_count}")
     print(f"Average words per document: {word_count / len(documents) if documents else 0:.2f}")
+   
+def search_documents_by_term(documents: list[dict], term: str) -> list[dict]:
+    results = []
+    for document in documents:
+        if term.lower() in document['content'].lower():
+            results.append(document)
+    return results
 
 
 with open('document.json', 'r') as file:
     documents = json.load(file)
 
 document_processing_report(documents)
+search_term = input("Enter search term : ")
+search_results = search_documents_by_term(documents, search_term)
+print(f"\n {len(search_results)} matching documents:")
+for document in search_results:
+    print(f" - {document['title']}")
