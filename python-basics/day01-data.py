@@ -1,4 +1,7 @@
 import json
+import os
+import sys
+
 def print_documents_id_and_title(documents):
     for document in documents:
         print(f"Document ID: {document['id']}, Title: {document['title']}")
@@ -59,8 +62,18 @@ def search_documents_by_term(documents: list[dict], term: str) -> list[dict]:
     return results
 
 
-with open('document.json', 'r') as file:
+docname = sys.argv[1] if len(sys.argv) > 1 else 'document.json'
+
+if not os.path.exists(docname):
+    print(f"{docname} file not found.")
+    exit(1)
+
+with open(docname, 'r') as file:
     documents = json.load(file)
+
+if len(documents) == 0:
+    print("No documents found.")
+    exit(1)
 
 document_processing_report(documents)
 search_term = input("Enter search term : ")
