@@ -1,21 +1,4 @@
-documents = [
-    {
-        "id": 1,
-        "title": "Introduction to RAG",
-        "content": "Retrieval Augmented Generation combines search with language models."
-    },
-    {
-        "id": 2,
-        "title": "Information Retrieval",
-        "content": "Information retrieval is concerned with finding relevant information."
-    },
-    {
-        "id": 3,
-        "title": "Embeddings",
-        "content": "Embeddings represent text as numerical vectors."
-    }
-]
-
+import json
 def print_documents_id_and_title(documents):
     for document in documents:
         print(f"Document ID: {document['id']}, Title: {document['title']}")
@@ -52,7 +35,8 @@ def summarize_documents(documents):
     return summaries
 
 
-
+with open('document.json', 'r') as file:
+    documents = json.load(file)
 print("Documents loaded successfully.")
 print_documents_id_and_title(documents)
 
